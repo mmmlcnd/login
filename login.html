@@ -27,10 +27,24 @@
     </style>
   </head>
   <body>
-    <input type="password" id="passwordInput" placeholder="パスワードを入力" />
-    <button id="loginBtn">ログイン</button>
-    <button id="toggleVisibilityBtn" aria-label="パスワード表示切替">👁️</button>
-    <p id="message"></p>
+    <form id="loginForm">
+      <input
+        type="password"
+        id="passwordInput"
+        placeholder="パスワードを入力"
+        autocomplete="current-password"
+        autofocus
+      />
+      <button id="loginBtn" type="button">ログイン</button>
+      <button
+        id="toggleVisibilityBtn"
+        type="button"
+        aria-label="パスワード表示切替"
+      >
+        👁️
+      </button>
+      <p id="message"></p>
+    </form>
 
     <script>
       const pwInput = document.getElementById('passwordInput');
