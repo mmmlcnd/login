@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ログイン</title>
+
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+      }
+      input {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        margin-left: 0.5rem;
+        cursor: pointer;
+      }
+      #message {
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="password" id="passwordInput" placeholder="パスワードを入力" />
+    <button id="loginBtn">ログイン</button>
+    <button id="toggleVisibilityBtn" aria-label="パスワード表示切替">👁️</button>
+    <p id="message"></p>
+
+    <script>
+      const pwInput = document.getElementById('passwordInput');
+      const toggleBtn = document.getElementById('toggleVisibilityBtn');
+      const loginBtn = document.getElementById('loginBtn');
+      const message = document.getElementById('message');
+
+      //入力文字数を表示
+      function updateCharCount() {
+        const pwInputLength = pwInput.value.length;
+        message.textContent =
+          pwInputLength > 0 ? `${pwInputLength}文字入力されています` : '';
+      }
+
+      //パスワード表示/非表示切替
+      function togglePasswordVisibility() {
+        if (pwInput.type === 'password') {
+          pwInput.type = 'text';
+          toggleBtn.textContent = '🙈';
+        } else {
+          pwInput.type = 'password';
+          toggleBtn.textContent = '👁️';
+        }
+      }
+
+      //ログインチェック
+      function loginCheck() {
+        const pw = pwInput.value.trim();
+
+        if (!pw) {
+          setMessage(
+            'パスワードを入力してください（ヒント：「o」から始まります）',
+            'white'
+          );
+          return;
+        }
+
+        if (pw === 'open123') {
+          setMessage('ログイン成功', 'lightgreen');
+        } else {
+          setMessage('パスワードが違います', 'white');
+        }
+      }
+
+      //メッセージと背景色の設定
+      function setMessage(text, bgcolor) {
+        message.textContent = text;
+        document.body.style.backgroundColor = bgcolor;
+      }
+
+      //イベント登録
+      pwInput.addEventListener('input', updateCharCount);
+      loginBtn.addEventListener('click', loginCheck);
+      toggleBtn.addEventListener('click', togglePasswordVisibility);
+      pwInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          loginCheck();
+        }
+      });
+    </script>
+  </body>
+</html>
